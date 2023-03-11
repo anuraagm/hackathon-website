@@ -1,5 +1,4 @@
 import { Map, Marker, ZoomControl, Overlay } from "pigeon-maps"
-import { stamenToner } from 'pigeon-maps/providers'
 import { useEffect, useState } from "react"
 
 function MapComponent({location}) {

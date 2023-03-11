@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from 'react';
-import MapComponent from './MapComponent/MapComponent';
-import DetailsComponent from './DetailsComponent/DetailsComponent';
+import MapComponent from './Components/MapComponent/MapComponent';
+import DetailsComponent from './Components/DetailsComponent/DetailsComponent';
 
 function App() {
   
