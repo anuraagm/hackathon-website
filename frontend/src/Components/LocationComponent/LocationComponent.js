@@ -4,7 +4,7 @@ import DetailsComponent from '../DetailsComponent/DetailsComponent';
 
 function LocationComponent() {
 
-    const [location, setLocation] = useState();
+    const [location, setLocation] = useState([39.50,22.10]);
 
     return (
         <div className="LocationComponent grid grid-cols-2">

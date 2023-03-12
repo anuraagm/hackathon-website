@@ -22,10 +22,10 @@ function MapComponent({location}) {
         'Germany': "Germany was surprisingly struck by these floods"
     }
 
-    const [center, setCenter] = useState(locationMap['Palamas'])
+    const [center, setCenter] = useState(location)
     const [zoom, setZoom] = useState(11)
     const [showPopup, setShowPopup] = useState(false)
-    const [message, setMessage] = useState(messageMap['Palamas'])
+    const [message, setMessage] = useState(location)
 
     function mapTiler (x, y, z, dpr) {
         return `https://api.maptiler.com/maps/${MAP_ID}/256/${z}/${x}/${y}${dpr >= 2 ? '@2x' : ''}.png?key=${MAPTILER_ACCESS_TOKEN}`
