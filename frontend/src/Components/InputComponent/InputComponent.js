@@ -1,15 +1,16 @@
 import { useState } from "react";
 
-function InputComponent() {
+function InputComponent({demoLocation, setLocation}) {
   const [formData, setFormData] = useState({
-    minLat: "",
-    minLon: "",
-    maxLat: "",
-    maxLon: "",
-    startDate: "",
-    endDate: ""
+    project:"",
+    latmin: "",
+    lonmin: "",
+    latmax: "",
+    lonmax: "",
+    flood_date: ""
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const API_URL = process.env.REACT_APP_API_URL
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -18,11 +19,15 @@ function InputComponent() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLocation([])
     // Make API call with formData using POST request
-    const response = await fetch("your-api-url", {
+    console.log(formData)
+    const response = await fetch(`${API_URL}/map`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData)
     });
+    console.log("response : ",response)
     // Handle response and show video component
     setIsSubmitted(true);
   };
@@ -32,57 +37,57 @@ function InputComponent() {
       <div className="bg-gray-100 rounded-md p-6 w-full lg:w-2/3 xl:w-1/2">
         <h2 className="text-2xl font-bold mb-4 text-center">Real-time flood risk analysis</h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+          <label htmlFor="project">Project Name:</label>
+          <input
+            type="text"
+            id="project"
+            name="project"
+            value={formData.project}
+            onChange={handleChange}
+            className="rounded-md border-gray-300 p-2"
+          />
           <label htmlFor="minLat">Minimum Latitude:</label>
           <input
             type="text"
-            id="minLat"
-            name="minLat"
-            value={formData.minLat}
+            id="latmin"
+            name="latmin"
+            value={formData.latmin}
             onChange={handleChange}
             className="rounded-md border-gray-300 p-2"
           />
           <label htmlFor="minLon">Minimum Longitude:</label>
           <input
             type="text"
-            id="minLon"
-            name="minLon"
-            value={formData.minLon}
+            id="lonmin"
+            name="lonmin"
+            value={formData.lonmin}
             onChange={handleChange}
             className="rounded-md border-gray-300 p-2"
           />
-          <label htmlFor="maxLat">Maximum Latitude:</label>
+          <label htmlFor="latmax">Maximum Latitude:</label>
           <input
             type="text"
-            id="maxLat"
-            name="maxLat"
-            value={formData.maxLat}
+            id="latmax"
+            name="latmax"
+            value={formData.latmax}
             onChange={handleChange}
             className="rounded-md border-gray-300 p-2"
           />
-          <label htmlFor="maxLon">Maximum Longitude:</label>
+          <label htmlFor="lonmax">Maximum Longitude:</label>
           <input
             type="text"
-            id="maxLon"
-            name="maxLon"
-            value={formData.maxLon}
+            id="lonmax"
+            name="lonmax"
+            value={formData.lonmax}
             onChange={handleChange}
             className="rounded-md border-gray-300 p-2"
           />
-          <label htmlFor="startDate">Start Date:</label>
+          <label htmlFor="flood_date">Flood Date:</label>
           <input
             type="date"
-            id="startDate"
-            name="startDate"
-            value={formData.startDate}
-            onChange={handleChange}
-            className="rounded-md border-gray-300 p-2"
-          />
-          <label htmlFor="endDate">End Date:</label>
-          <input
-            type="date"
-            id="endDate"
-            name="endDate"
-            value={formData.endDate}
+            id="flood_date"
+            name="flood_date"
+            value={formData.flood_date}
             onChange={handleChange}
             className="rounded-md border-gray-300 p-2"
           />
