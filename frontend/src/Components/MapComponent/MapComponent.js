@@ -1,7 +1,7 @@
 import { Map, Marker, ZoomControl, Overlay } from "pigeon-maps"
 import { useEffect, useState } from "react"
 
-function MapComponent({location}) {
+function MapComponent({location, coordinates}) {
 
     const MAPTILER_ACCESS_TOKEN = '1rrDzrqklQWsuKoJl5iy'
     const MAP_ID = 'basic-v2'
@@ -34,8 +34,12 @@ function MapComponent({location}) {
     
     useEffect(() => {
         setCenter(locationMap[location]);
-        setMessage(messageMap[location])
+        setMessage(messageMap[location]);
     },[location]);
+
+    useEffect(() => {
+        setCenter(coordinates);
+    }, [coordinates]);
     
     return(
         <div className="MapComponent col-span-1">

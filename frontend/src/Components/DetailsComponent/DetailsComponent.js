@@ -1,4 +1,26 @@
+import { useState, useEffect } from "react";
+import axios from 'axios';
+
 function DetailsComponent({location, setLocation}) {
+
+    const url = process.env.REACT_APP_API_URL
+    const img = process.env.REACT_APP_IMAGE_URL
+    const [images, setImages] = useState();
+    const [display, setDisplay] = useState();
+    // console.log(location)
+
+    useEffect(() => {
+        axios.get(`${url}/images/${location}`)
+        .then((response) => {
+            console.log("response : ",response.data);
+            setImages(response.data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }, [location]);
+    
+
     return(
         <div className="DetailsComponent col-span-1 m-6">
             <h1 className="text-5xl text-blue-800">Flood Risk Analysis</h1>
@@ -45,11 +67,10 @@ function DetailsComponent({location, setLocation}) {
                     Germany
                 </button>
             </div>
-            <div className="mt-8">
-                <video className="w-full" controls>
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-                </video>
+            <div className="image-grid">
+                {images?.images.map((imageSrc, index) => (
+                    <img key={index} src={img+"/"+imageSrc} alt={`Image ${index}`} />
+                ))}
             </div>
             
 

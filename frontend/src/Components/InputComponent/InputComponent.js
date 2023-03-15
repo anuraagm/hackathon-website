@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function InputComponent({demoLocation, setLocation}) {
+function InputComponent({demoLocation, setLocation, setCoordinates}) {
   const [formData, setFormData] = useState({
     project:"",
     latmin: "",
@@ -10,6 +10,7 @@ function InputComponent({demoLocation, setLocation}) {
     flood_date: ""
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const API_URL = process.env.REACT_APP_API_URL
 
   const handleChange = (event) => {
@@ -19,7 +20,7 @@ function InputComponent({demoLocation, setLocation}) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLocation([])
+    setCoordinates([((formData.latmin+formData.latmax)/2), ((formData.lonmin+formData.lonmax)/2)])
     // Make API call with formData using POST request
     console.log(formData)
     const response = await fetch(`${API_URL}/map`, {
@@ -97,6 +98,11 @@ function InputComponent({demoLocation, setLocation}) {
             </button>
           </div>
         </form>
+        {isLoading && (
+          <div className="flex justify-center mt-4">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
+          </div>
+        )}
         {isSubmitted && (
           <div className="mt-4">
             <video src="your-video-src" controls></video>
