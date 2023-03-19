@@ -20,6 +20,7 @@ function InputComponent({demoLocation, setLocation, setCoordinates}) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     setCoordinates([((formData.latmin+formData.latmax)/2), ((formData.lonmin+formData.lonmax)/2)])
     // Make API call with formData using POST request
     console.log(formData)
@@ -30,7 +31,6 @@ function InputComponent({demoLocation, setLocation, setCoordinates}) {
     });
     console.log("response : ",response)
     // Handle response and show video component
-    setIsSubmitted(true);
   };
 
   return (
